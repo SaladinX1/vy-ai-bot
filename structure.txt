@@ -1,0 +1,22 @@
+vy-clone/
+│
+├── main.py                 # Lancement du système
+├── agents/
+│   ├── planner.py          # Agent IA planificateur
+│   └── memory.py           # Mémoire contextuelle
+├── vision/
+│   ├── screen_capture.py   # Capture écran
+│   ├── ocr.py              # Extraction de texte
+│   └── ui_parser.py        # Analyse visuelle
+├── execution/
+│   ├── mouse_control.py    # Mouvements souris, clics
+│   ├── keyboard_control.py # Entrée clavier
+│   └── app_launcher.py     # Ouverture d’apps
+├── llm/
+│   ├── llm_interface.py    # Connexion à OpenAI/Mistral/etc.
+│   └── prompt_engine.py    # Modèles de prompts
+├── workflows/
+│   └── manager.py          # Gestion des workflows
+└── config/
+    └── settings.yaml       # Clés API, configs
+
