@@ -1,0 +1,16 @@
+✅ 1. workflow.json prêt à l’emploi
+Un fichier workflow.json (déjà créé ci-dessus) orchestrant :
+
+💡 Génération de produit digital par LLM
+
+📄 Création et export en PDF
+
+📦 Upload sur Payhip
+
+💳 Lien de paiement PayPal
+
+📲 Publication Instagram & TikTok
+
+📧 Envoi campagne Mailchimp
+
+👥 Création de contact CRM dans Hubspot
