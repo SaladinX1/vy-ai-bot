@@ -1,0 +1,15 @@
+
+
+<h1>📊 Feedback des Workflows</h1>
+<table border="1">
+  <tr><th>Workflow</th><th>Note</th><th>Commentaire</th><th>Date</th></tr>
+  {% for row in feedback %}
+    <tr>
+      <td>{{ row.workflow_name }}</td>
+      <td>{{ row.score }}</td>
+      <td>{{ row.note }}</td>
+      <td>{{ row.created_at }}</td>
+    </tr>
+  {% endfor %}
+</table>
+<a href="/">⬅ Retour</a>
