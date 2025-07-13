@@ -1,0 +1,9 @@
+{
+  "name": "newsletter_automation",
+  "description": "Créer et exporter une série d'emails IA pour newsletter",
+  "steps": [
+    { "plugin": "llm", "action": "generate_email_topics", "args": { "niche": "marketing digital" } },
+    { "plugin": "llm", "action": "write_emails", "args": { "topics": "{{last_output}}" } },
+    { "plugin": "email_formatter", "action": "export_emails_html", "args": { "emails": "{{last_output}}" } }
+  ]
+}

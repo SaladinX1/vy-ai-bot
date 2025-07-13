@@ -1,0 +1,10 @@
+{
+  "name": "infoproduct_creator",
+  "description": "Créer un infoproduit PDF complet à partir d'une niche",
+  "steps": [
+    { "plugin": "llm", "action": "generate_product_outline", "args": { "topic": "productivité" } },
+    { "plugin": "llm", "action": "write_infoproduct", "args": { "outline": "{{last_output}}" } },
+    { "plugin": "pdf_generator", "action": "html_to_pdf", "args": { "html_content": "{{last_output}}", "output_path": "outputs/infoproduct.pdf" } },
+    { "plugin": "content_exporter", "action": "send_email", "args": { "to": "client@example.com", "subject": "Ton produit est prêt", "attachment": "outputs/infoproduct.pdf" } }
+  ]
+}

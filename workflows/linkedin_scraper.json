@@ -1,0 +1,9 @@
+{
+      "name": "linkedin_scraper.json",
+      "description": "Scraper de leads LinkedIn + export",
+      "steps": [
+        { "plugin": "scraper_linkedin", "action": "login", "args": {} },
+        { "plugin": "scraper_linkedin", "action": "search_leads", "args": { "keywords": "coach business" } },
+        { "plugin": "scraper_linkedin", "action": "export_csv", "args": { "output": "leads.csv" } }
+      ]
+    }

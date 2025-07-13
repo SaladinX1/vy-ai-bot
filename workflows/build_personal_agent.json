@@ -1,0 +1,9 @@
+ {
+  "name": "build_personal_agent",
+  "description": "Créer un assistant IA autonome avec mémoire et logique",
+  "steps": [
+    { "plugin": "llm", "action": "generate_persona", "args": { "goal": "assistant personnel pour entrepreneur" } },
+    { "plugin": "memory", "action": "init_memory", "args": {} },
+    { "plugin": "agent_core", "action": "deploy_agent", "args": { "persona": "{{last_output}}" } }
+  ]
+}

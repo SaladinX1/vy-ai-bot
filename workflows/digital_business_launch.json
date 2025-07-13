@@ -1,0 +1,77 @@
+{
+  "name": "digital_business_launch",
+  "description": "Créer un business de vente de produit digital avec marketing automatique",
+  "steps": [
+    {
+      "type": "llm_generate",
+      "prompt": "Génère une idée de produit digital à vendre en 2025, avec un titre accrocheur."
+    },
+    {
+      "type": "llm_generate",
+      "prompt": "Crée le contenu d'un eBook de 20 pages sur ce sujet."
+    },
+    {
+      "type": "export_pdf",
+      "input": "{{previous_output}}",
+      "output_file": "product.pdf"
+    },
+    {
+      "type": "plugin_call",
+      "plugin": "payhip_bot",
+      "action": "upload_product",
+      "args": {
+        "title": "{{generated_title}}",
+        "file": "product.pdf",
+        "price": 19.99,
+        "description": "eBook complet et actionnable pour {{generated_title}}"
+      }
+    },
+    {
+      "type": "plugin_call",
+      "plugin": "paypal_api",
+      "action": "generate_payment_link",
+      "args": {
+        "amount": 19.99,
+        "description": "eBook: {{generated_title}}"
+      }
+    },
+    {
+      "type": "plugin_call",
+      "plugin": "instagram",
+      "action": "post_image",
+      "args": {
+        "caption": "🚀 Nouveau ! Découvrez {{generated_title}} - le guide digital à ne pas manquer. Lien en bio !",
+        "image_path": "cover.jpg"
+      }
+    },
+    {
+      "type": "plugin_call",
+      "plugin": "tiktok",
+      "action": "upload_video",
+      "args": {
+        "video_path": "promo_tiktok.mp4",
+        "caption": "Voici le secret pour {{generated_title}} 🎯 #ebook #digitalproduct"
+      }
+    },
+    {
+      "type": "plugin_call",
+      "plugin": "mailchimp_api",
+      "action": "send_campaign",
+      "args": {
+        "subject": "[Nouveau] {{generated_title}} est disponible !",
+        "html_content": "<h1>Votre eBook est prêt</h1><p>Téléchargez maintenant via {{paypal_link}}</p>",
+        "audience": "digital-buyers"
+      }
+    },
+    {
+      "type": "plugin_call",
+      "plugin": "hubspot",
+      "action": "create_contact",
+      "args": {
+        "email": "test@example.com",
+        "note": "Prospect ciblé eBook {{generated_title}}"
+      }
+    }
+  ]
+}
+

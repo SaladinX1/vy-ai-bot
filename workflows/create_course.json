@@ -1,0 +1,10 @@
+{
+      "name": "create_course.json",
+      "description": "Générer un cours complet + quiz",
+      "steps": [
+        { "plugin": "llm", "action": "generate_course_outline", "args": { "topic": "no-code business" } },
+        { "plugin": "llm", "action": "write_lessons", "args": { "outline": "{{last_output}}" } },
+        { "plugin": "llm", "action": "generate_quizzes", "args": { "content": "{{last_output}}" } },
+        { "plugin": "content_exporter", "action": "to_pdf", "args": { "input": "{{last_output}}" } }
+      ]
+    }

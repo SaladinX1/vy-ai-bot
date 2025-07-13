@@ -1,0 +1,11 @@
+{
+  "name": "infoproduct_generator",
+  "description": "Créer un ebook ou une formation automatisée",
+  "steps": [
+    { "plugin": "llm", "action": "generate_topic", "args": { "niche": "productivité personnelle" } },
+    { "plugin": "llm", "action": "generate_outline", "args": { "topic": "{{last_output}}" } },
+    { "plugin": "llm", "action": "write_full_content", "args": { "outline": "{{last_output}}" } },
+    { "plugin": "pdf_generator", "action": "create_pdf", "args": { "content": "{{last_output}}", "filename": "infoproduit.pdf" } },
+    { "plugin": "site_builder", "action": "build_landing_page", "args": { "offer": "{{last_output}}" } }
+  ]
+}

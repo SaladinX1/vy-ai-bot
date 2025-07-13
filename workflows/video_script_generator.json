@@ -1,0 +1,9 @@
+{
+  "name": "video_script_generator",
+  "description": "Générer des scripts de vidéos pour YouTube et TikTok à partir d'une niche",
+  "steps": [
+    { "plugin": "llm", "action": "generate_video_ideas", "args": { "niche": "finance personnelle" } },
+    { "plugin": "llm", "action": "generate_video_scripts", "args": { "ideas": "{{last_output}}", "platform": "youtube" } },
+    { "plugin": "content_exporter", "action": "save_to_txt", "args": { "content": "{{last_output}}", "folder": "exports/videos/" } }
+  ]
+}

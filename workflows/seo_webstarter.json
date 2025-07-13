@@ -1,0 +1,10 @@
+{
+  "name": "seo_webstarter",
+  "description": "Créer un mini site avec contenu SEO et articles",
+  "steps": [
+    { "plugin": "llm", "action": "generate_keywords", "args": { "niche": "productivité" } },
+    { "plugin": "seo_generator", "action": "generate_articles", "args": { "keywords": "{{last_output}}" } },
+    { "plugin": "site_builder", "action": "build_site", "args": { "content": "{{last_output}}" } },
+    { "plugin": "site_builder", "action": "deploy", "args": { "folder": "dist/" } }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "offer_optimizer",
+  "description": "Améliorer une offre produit/service automatiquement",
+  "steps": [
+    { "plugin": "llm", "action": "analyze_offer", "args": { "product_name": "Coussin relaxant pour bureau" } },
+    { "plugin": "llm", "action": "generate_improved_offer", "args": { "input": "{{last_output}}" } },
+    { "plugin": "content_exporter", "action": "update_product", "args": {
+      "product": "Coussin relaxant pour bureau",
+      "new_data": "{{last_output}}"
+    }}
+  ]
+}

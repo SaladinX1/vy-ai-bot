@@ -1,0 +1,4 @@
+[
+  { "workflow": "build_tiktok_influencer", "cron": "daily" },
+  { "workflow": "create_course", "cron": "hourly" }
+]

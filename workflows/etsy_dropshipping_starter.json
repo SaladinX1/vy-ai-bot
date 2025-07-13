@@ -1,0 +1,10 @@
+{
+  "name": "etsy_dropshipping_starter",
+  "description": "Lancer un produit dropshipping sur Etsy automatiquement",
+  "steps": [
+    { "plugin": "llm", "action": "generate_product_idea", "args": { "niche": "déco intérieure minimaliste" } },
+    { "plugin": "llm", "action": "generate_product_listing", "args": { "input": "{{last_output}}" } },
+    { "plugin": "image_generator", "action": "generate_mockup", "args": { "product_info": "{{last_output}}" } },
+    { "plugin": "etsy_exporter", "action": "export_listing", "args": { "data": "{{last_output}}" } }
+  ]
+}

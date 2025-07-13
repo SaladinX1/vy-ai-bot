@@ -1,0 +1,10 @@
+{
+      "name": "data_analysis_report.json",
+      "description": "Analyser un dataset et en faire un rapport automatisé",
+      "steps": [
+        { "plugin": "data_loader", "action": "load_csv", "args": { "path": "data/input.csv" } },
+        { "plugin": "llm", "action": "analyze_data", "args": { "dataset": "{{last_output}}" } },
+        { "plugin": "llm", "action": "write_report", "args": { "insights": "{{last_output}}" } },
+        { "plugin": "content_exporter", "action": "to_pdf", "args": { "input": "{{last_output}}" } }
+      ]
+    }

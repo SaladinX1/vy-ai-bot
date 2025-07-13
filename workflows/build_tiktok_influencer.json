@@ -1,0 +1,9 @@
+{
+      "name": "build_tiktok_influencer.json",
+      "description": "Automatiser un compte TikTok influenceur",
+      "steps": [
+        { "plugin": "llm", "action": "generate_video_script", "args": { "niche": "business mindset" } },
+        { "plugin": "content_exporter", "action": "to_video_format", "args": { "script": "{{last_output}}" } },
+        { "plugin": "tiktok", "action": "post_video", "args": { "file": "output/video.mp4" } }
+      ]
+    }

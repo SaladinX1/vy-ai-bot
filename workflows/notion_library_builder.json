@@ -1,0 +1,9 @@
+ {
+      "name": "notion_library_builder.json",
+      "description": "Résumer 50 PDF dans Notion",
+      "steps": [
+        { "plugin": "scraper_pdf", "action": "extract_text_batch", "args": { "folder": "pdfs/" } },
+        { "plugin": "llm", "action": "summarize", "args": { "input": "{{last_output}}" } },
+        { "plugin": "notion_api", "action": "push_page", "args": { "content": "{{last_output}}" } }
+      ]
+    }

@@ -1,0 +1,9 @@
+{
+  "name": "ebook_builder",
+  "description": "Créer un ebook ou lead magnet automatiquement",
+  "steps": [
+    { "plugin": "llm", "action": "generate_outline", "args": { "topic": "développement personnel" } },
+    { "plugin": "llm", "action": "write_sections", "args": { "outline": "{{last_output}}" } },
+    { "plugin": "content_exporter", "action": "export_pdf", "args": { "content": "{{last_output}}", "filename": "exports/ebook_dev_perso.pdf" } }
+  ]
+}
