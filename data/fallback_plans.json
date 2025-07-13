@@ -1,0 +1,15 @@
+[
+  {
+    "trigger": "échec génération leads",
+    "workflow": [
+      {
+        "task": "Envoyer une campagne email de relance",
+        "tool": "email_sender",
+        "params": {
+          "template": "relance_leads.html",
+          "target_list": "leads_inactifs.csv"
+        }
+      }
+    ]
+  }
+]
