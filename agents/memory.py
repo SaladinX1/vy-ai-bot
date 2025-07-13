@@ -3,11 +3,13 @@ class Memory:
         self.history = []
 
     def update(self, plan, user_input):
-        """Ajoute la commande et le plan d’action à l’historique."""
-        self.history.append({
-            "input": user_input,
-            "plan": plan
-        })
+        """Plan peut être un seul dict ou une liste"""
+        if isinstance(plan, list):
+            for p in plan:
+                self.history.append({"input": user_input, "plan": p})
+        else:
+            self.history.append({"input": user_input, "plan": plan})
+
 
     def get_context(self, limit=5):
         """Retourne les dernières interactions pour enrichir le prompt."""
