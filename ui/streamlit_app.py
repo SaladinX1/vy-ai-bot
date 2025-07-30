@@ -2,6 +2,8 @@
 
 import streamlit as st
 import threading
+from core.db_manager import list_projects
+
 from core.scheduler import start_scheduler
 import os
 import sys
@@ -49,6 +51,18 @@ def run_workflow_thread(name, manager, plan_executor):
             break
 
     append_log(f"✔️ Fin du workflow '{name}'")
+
+def run_streamlit_ui():
+    st.title("Vy-AI-Bot - Projets en cours")
+
+    projects = list_projects()
+    for p in projects:
+        st.write(f"**Objectif:** {p.objective}")
+        st.write(f"Statut: {p.status}")
+        st.write("---")
+
+    if st.button("Recharger"):
+        st.experimental_rerun()
 
 def app():
 
