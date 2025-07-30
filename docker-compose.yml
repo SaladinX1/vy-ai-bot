@@ -1,14 +1,54 @@
 
 
+# version: '3.8'
+# services:
+#   web:
+#     build: .
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - .:/app
+#     command: flask run --host=0.0.0.0
+#   scheduler:
+#     build: .
+#     command: python scheduler.py
+
+# docker-compose.yml
 version: '3.8'
+
 services:
-  web:
+  app:
     build: .
-    ports:
-      - "5000:5000"
+    container_name: ai-business-runner
+    restart: always
     volumes:
       - .:/app
-    command: flask run --host=0.0.0.0
-  scheduler:
-    build: .
-    command: python scheduler.py
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASS=Razorback2.2
+      - MYSQL_DB=ai_project_manager
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-ai
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Razorback2.2
+      MYSQL_DATABASE: ai_project_manager
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+
+# === 2. Planification système avec pm2 ou crontab ===
+
+# ➔ Si tu déploies avec PM2 sur un serveur Linux
+# Install : npm install -g pm2
+# → Dans le dossier racine, lance :
+# pm2 start main_loop.py --interpreter python3 --name ai-biz-loop
+# pm2 save
+# pm2 startup

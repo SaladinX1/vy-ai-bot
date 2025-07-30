@@ -1,19 +1,13 @@
-# Dockerfile
-
-# Étape 1 : base Python
 FROM python:3.11-slim
 
-# Étape 2 : créer un dossier app
 WORKDIR /app
 
-# Étape 3 : copier les fichiers
-COPY . /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Étape 4 : installer les dépendances
-RUN pip install --upgrade pip && pip install -r requirements.txt
+COPY . .
 
-# Exposer le port de Streamlit
-EXPOSE 8501
+CMD ["python", "main.py", "--autopilot"]
 
-# Étape 5 : commande de lancement
-CMD ["python", "main.py"]
+# docker build -t vy-ai-bot .
+# docker run -p 8501:8501 vy-ai-bot
