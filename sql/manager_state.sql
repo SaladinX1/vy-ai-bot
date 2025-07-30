@@ -1,0 +1,22 @@
+CREATE DATABASE IF NOT EXISTS ai_project_manager;
+
+USE ai_project_manager;
+
+CREATE TABLE IF NOT EXISTS projects (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    project_id VARCHAR(255) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS states (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    project_id VARCHAR(255),
+    state_json TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS metadata (
+    id INT PRIMARY KEY DEFAULT 1,
+    last_used_project VARCHAR(255)
+);
