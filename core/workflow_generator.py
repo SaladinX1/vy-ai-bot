@@ -6,7 +6,7 @@ from llm.llm_interface import query_mistral
 
 from core import memory
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("MISTRAL_API_KEY")
 openai.api_base = os.getenv("OPENAI_API_BASE")
 
 # DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "mistralai/mixtral-8x7b")
