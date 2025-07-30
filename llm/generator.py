@@ -1,7 +1,7 @@
 import os
 import openai
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("MISTRAL_API_KEY")
 
 def get_llm_response(prompt, model="gpt-4"):
     try:

@@ -10,10 +10,10 @@ from llm.selector import select_best_model
 from jsonschema import validate, ValidationError
 
 API_URL = "https://api.mistral.ai/v1/chat/completions"
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("MISTRAL_API_KEY")
 
 HEADERS = {
-    "Authorization": f"Bearer {"https://api.mistral.ai/v1/chat/completions"}",
+    "Authorization": "Bearer https://api.mistral.ai/v1/chat/completions",
     "Content-Type": "application/json"
 }
 
