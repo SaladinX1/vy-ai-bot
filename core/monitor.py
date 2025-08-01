@@ -2,7 +2,7 @@
 
 import json
 import datetime
-from utils.logger import append_log
+from core.utils.logger import append_log
 
 def log_kpi(workflow_name: str, score: float):
     now = datetime.datetime.utcnow().isoformat()
