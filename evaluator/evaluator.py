@@ -1,6 +1,6 @@
 import json
 from llm.llm_interface import query_mistral
-from utils.logger import append_log
+from core.utils.logger import append_log
 
 from evaluator.scoring import score_workflow_result
 
