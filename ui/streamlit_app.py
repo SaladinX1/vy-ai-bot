@@ -2,9 +2,12 @@
 
 import streamlit as st
 import threading
-from core.db_manager import list_projects
 
-from core.scheduler import start_scheduler
+
+from core.db_manager import DBManager
+
+
+
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -55,7 +58,8 @@ def run_workflow_thread(name, manager, plan_executor):
 def run_streamlit_ui():
     st.title("Vy-AI-Bot - Projets en cours")
 
-    projects = list_projects()
+    projects = DBManager.list_projects() 
+    # list_projects()
     for p in projects:
         st.write(f"**Objectif:** {p.objective}")
         st.write(f"Statut: {p.status}")
@@ -94,11 +98,16 @@ def app():
     st.text_area("Logs", value=log_text, height=300)
 
 if __name__ == "__main__":
-    app()
-
+    from core.scheduler import start_scheduler  # ✅ décalé ici, pour éviter l'import circulaire
 
 # Démarrage scheduler sur le workflow sélectionné, intervalle 24h (86400 sec)
+   
     workflows = manager.list_workflows()
     if workflows:
         start_scheduler(workflows[0], interval_seconds=86400)
+
     app()
+
+
+
+    

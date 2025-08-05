@@ -2,10 +2,13 @@
 
 import json
 import os
+from core.utils.logger import append_log  # ✅ Ajout de l'import
 
 MEMORY_PATH = "logs/memory.json"
 
 def save_lesson(workflow_name, reason, score):
+    append_log(f"📚 Enregistrement de la leçon pour le goal '{workflow_name}'")  # ✅ Ajout ici
+
     entry = {"workflow": workflow_name, "reason": reason, "score": score}
     memory = []
     if os.path.exists(MEMORY_PATH):
