@@ -3,7 +3,7 @@ from core.workflow_generator import generate_workflow
 from core.executor import execute_workflow
 from bots.publisher import publish_product, post_to_twitter
 from core.analytics_watcher import analyze_performance, decide_next_action
-from core.memory_store import save_memory
+from core.memory_store import MemoryStore
 
 def run_autonomous_loop():
     print("🚀 Début de la boucle autonome")
@@ -36,6 +36,7 @@ def run_autonomous_loop():
         "analytics": analytics,
         "action": action
     }
-    save_memory(memory_entry)
+    # save_memory(memory_entry)
+    memory = MemoryStore()
     print("💾 Mémoire sauvegardée.")
     print("🔄 Boucle terminée, en attente pour redémarrer.")

@@ -7,7 +7,7 @@ from workflows import manager
 from core.auto_executor import run_workflow_with_retry  # à créer si pas encore fait
 
 from core import plan_executor
-from utils.logger import append_log
+from core.utils.logger import append_log
 
 from core.agent_manager import run_autonomous_loop
 

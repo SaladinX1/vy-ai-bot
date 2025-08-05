@@ -2,7 +2,7 @@
 
 from core.db_manager import DBManager
 from core.orchestrator import BusinessOrchestrator
-from utils.logger import append_log
+from core.utils.logger import append_log
 
 class SupervisorAgent:
     """

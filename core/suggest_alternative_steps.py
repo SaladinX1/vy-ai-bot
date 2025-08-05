@@ -2,7 +2,7 @@
 
 import json
 from llm.llm_interface import query_mistral
-from utils.logger import append_log
+from core.utils.logger import append_log
 
 def suggest_alternative_steps(workflow, error_reason, goal):
     prompt = f"""

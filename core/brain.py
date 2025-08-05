@@ -2,8 +2,8 @@ import json
 from analytics.analytics_watcher import get_gumroad_sales
 from workflows import manager
 from core import plan_executor
-from vectorstore import memory
-from utils.logger import append_log
+from core.vectorstore import memory
+from core.utils.logger import append_log
 
 def improve_product(product_id):
     append_log(f"[BRAIN] IA améliore produit {product_id}")

@@ -3,7 +3,7 @@ import json
 import uuid
 from datetime import datetime
 
-from core.db_manager import get_connection
+from core.db_manager import get_mysql_conn as get_connection
 
 PROJECTS_DIR = os.path.join(os.path.dirname(__file__), '..', 'projects')
 DB_DIR = "db"

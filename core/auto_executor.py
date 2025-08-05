@@ -2,13 +2,13 @@ import time
 from ui.streamlit_app import append_log
 from data.fallback_plans import get_fallback_plan
 
-from memory.db import save_memory, save_lesson
+from memory.db import save_lesson
 from core.monitor import log_kpi
 from evaluator.evaluator import evaluate_workflow_result
 
 from core import memory, suggest_alternative_steps
 from core.simulator import simulate_workflow
-from utils.feedback_handler import log_feedback
+from core.utils.feedback_handler import log_feedback
 
 
 def run_workflow_with_retry(workflow_name, manager, executor):

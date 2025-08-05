@@ -25,3 +25,9 @@ class Ideator:
             max_tokens=50
         )
         return response.choices[0].message.content.strip()
+
+
+_ideator_instance = Ideator()
+
+def generate_idea():
+    return _ideator_instance.generate_idea()

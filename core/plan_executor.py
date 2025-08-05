@@ -1,14 +1,19 @@
-# ✅ plan_executor.py modifié avec gestion des variables dynamiques
-
 import pyautogui
 import time
 import logging
 import json
 import re
+import os
+from datetime import datetime
+
 from vision.guards import detect_blockers
 from vision.recognizer import extract_text_from_image
 from core.utils.logger import log_info, log_error, append_log, read_log
 
+from agents.lesson_agent import LessonAgent
+lesson_agent = LessonAgent()
+
+MEMORY_PATH = "memory.json"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,19 +21,9 @@ logging.basicConfig(
     datefmt="%H:%M:%S"
 )
 
-import os
-from datetime import datetime
-
-MEMORY_PATH = "memory.json"
-
-def execute_plan(plan, context=None):
-    if detect_blockers():  # ✅ détection CAPTCHA
-        append_log("🛑 Captcha détecté. Passage en mode attente.")
-        return
-
 def resolve_variables(obj, context):
     """
-    Remplace toutes les occurrences {{var}} dans un string ou dict avec leur valeur dans context.
+    Remplace toutes les occurrences {{var}} dans un string, dict ou liste avec leur valeur dans context.
     """
     if isinstance(obj, str):
         matches = re.findall(r"\{\{(.*?)\}\}", obj)
@@ -170,30 +165,52 @@ class Action:
             logging.info(f"📌 Variable définie : {self.target} = {self.value}")
         else:
             raise ValueError("Action set_variable nécessite un 'target' et une 'value'")
-        
-    def log_event(event_type, content):
-        memory = load_memory()
-        memory.append({
-            "timestamp": datetime.utcnow().isoformat(),
-            "type": event_type,
-            "content": content
-        })
-        with open(MEMORY_PATH, "w") as f:
-            json.dump(memory, f, indent=2)
 
-    def load_memory():
-        if not os.path.exists(MEMORY_PATH):
-            return []
-        with open(MEMORY_PATH, "r") as f:
-            return json.load(f)
-        
+def load_memory():
+    if not os.path.exists(MEMORY_PATH):
+        return []
+    with open(MEMORY_PATH, "r") as f:
+        return json.load(f)
+
+def log_event(event_type, content):
+    memory = load_memory()
+    memory.append({
+        "timestamp": datetime.utcnow().isoformat(),
+        "type": event_type,
+        "content": content
+    })
+    with open(MEMORY_PATH, "w") as f:
+        json.dump(memory, f, indent=2)
+
 def execute_plan(plan, context=None):
+    if detect_blockers():  # ✅ détection CAPTCHA
+        append_log("🛑 Captcha détecté. Passage en mode attente.")
+        return
+
     if isinstance(plan, str):
         plan = json.loads(plan)
     if context is None:
         context = {}
+
+    # Gestion des tâches spéciales
+    task_handlers = {
+        "lesson": lesson_agent.run,
+        # Tu peux ajouter d'autres handlers ici si besoin
+    }
+
     for step in plan:
+        task_type = step.get("task")
+        input_data = step.get("input", {})
+
+        if task_type in task_handlers:
+            logging.info(f"🎯 Exécution tâche spéciale: {task_type}")
+            output = task_handlers[task_type](input_data)
+            # Optionnel : mise à jour du contexte avec la sortie du handler
+            if isinstance(output, dict):
+                context.update(output)
+            continue
+
+        # Sinon exécute l'action classique
         step_resolved = resolve_variables(step, context)
         action = Action(step_resolved["action"], step_resolved.get("target"), step_resolved.get("value"), context)
         action.execute()
-
